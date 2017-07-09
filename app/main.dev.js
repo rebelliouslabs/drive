@@ -10,8 +10,9 @@
  *
  * @flow
  */
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, ipcMain } from 'electron';
 import MenuBuilder from './menu';
+//import noble from 'noble';
 
 let mainWindow = null;
 
@@ -42,6 +43,15 @@ const installExtensions = async () => {
 
 
 /**
+ * Set up some bluetooth stuff.
+ */
+
+ // noble.on('stateChange', (state) => {
+ //   console.log('Noble Bluetooth state: ', state)
+ // });
+
+
+/**
  * Add event listeners...
  */
 
@@ -62,7 +72,10 @@ app.on('ready', async () => {
   mainWindow = new BrowserWindow({
     show: false,
     width: 1024,
-    height: 728
+    height: 728,
+    webPreferences: {
+      nodeIntegrationInWorker: true
+    }
   });
 
   mainWindow.loadURL(`file://${__dirname}/app.html`);
@@ -84,3 +97,10 @@ app.on('ready', async () => {
   const menuBuilder = new MenuBuilder(mainWindow);
   menuBuilder.buildMenu();
 });
+
+
+ipcMain.on('startBLEScan', (event, args) => {
+  console.log('Starting to scan');
+  //noble.startScanning();
+  event.sender.send('acknowledgeBLEScan', true);
+})

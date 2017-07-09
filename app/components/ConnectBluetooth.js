@@ -1,34 +1,19 @@
 // @flow
-import noble from 'noble';
 import React, { Component } from 'react';
-
+import { ipcRenderer } from 'electron';
 
 export default class ConnectBluetooth extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      connections: [],
-    }
-
-    this.searchForConnection = this.searchForConnection.bind(this);
+    ipcRenderer.on('acknowledgeBLEScan', (event, args) => {
+      console.log('got acknowledgement!');
+    });
   }
 
   componentDidMount() {
-    noble.on('stateChange', this.nobleStateChange);
-    this.searchForConnection();
-  }
-
-  nobleStateChange(state) {
-    console.log(state);
-  }
-
-  searchForConnection() {
-    noble.startScanning([], false, this.addToConnectionList)
-  }
-
-  addToConnectionList(error) {
-
+    console.log('call to start ble scan');
+    ipcRenderer.send('startBLEScan', null);
   }
 
   render() {
