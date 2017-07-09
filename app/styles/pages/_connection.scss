@@ -1,0 +1,46 @@
+#connect-page {
+  .wrapper {
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    height: 100%;
+    min-height: 80vh;
+  }
+
+  .connection-text-center {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-top: 20%;
+  }
+
+  #connection-info {
+
+    .side-bar-well {
+      min-height: 300px;
+    }
+  }
+
+  .right-selection-area {
+    padding: 0.5rem 1rem;
+    flex-grow: 2;
+
+    h2 {
+      font-size: 1rem;
+      font-weight: 300;
+      text-align: center;
+    }
+
+    .well {
+      background-color: $well-bg-color;
+      border: 1px solid $well-border-color;
+      border-radius: $base-border-radius;
+      height: 60vh;
+    }
+
+    .button-right {
+      padding: 1rem 0.5rem;
+    }
+  }
+}
